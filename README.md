@@ -5,6 +5,7 @@ This repository contains template code for the assignments in the course. It wil
 To check out a newly posted assignment branch, run:
 
 ```
+git fetch upstream
 git switch -t upstream/hw1
 ```
 
