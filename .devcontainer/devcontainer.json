@@ -9,24 +9,26 @@
     "ghcr.io/devcontainers-contrib/features/poetry:2": {},
     "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
   },
-
-  // Features to add to the dev container. More info: https://containers.dev/features.
-  // "features": {},
-
+  "extensions": ["ms-python.python", "eamodio.gitlens"],
+  
   // Use 'forwardPorts' to make a list of ports inside the container available locally.
   // This can be used to network with other containers or the host.
   // "forwardPorts": [5000, 5432],
 
-  // Use 'postCreateCommand' to run commands after the container is created.
-  // "postCreateCommand": "pip install --user -r requirements.txt",
+  "postCreateCommand": "poetry install",
 
   // Configure tool-specific properties.
   "customizations": {
     "codespaces": {
       "repositories": {
         "wustl-data/sp23-assignments": {
-          "permissions": { "content": "read" }
+          "permissions": "read-all"
         }
+      }
+    },
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
       }
     }
   }
