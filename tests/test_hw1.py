@@ -2,14 +2,11 @@ import os
 from pathlib import Path
 from importlib.util import find_spec
 from git import Repo
+import datetime
+import pandas as pd
 
 try:
     import fake_records
-except:
-    pass
-
-try:
-    import pandas as pd
 except:
     pass
 
@@ -36,12 +33,7 @@ def test_generate():
 
 def test_data_folder_ignored():
     r = Repo(".")
-    if not os.path.exists("data"):
-        os.mkdir("data")
-    open("data/test", "wb").close()
-    assert not r.untracked_files
-    os.remove("data/test")
-    os.rmdir("data")
+    assert r.ignored("data")
 
 
 def test_save():
@@ -53,9 +45,17 @@ def test_save():
 
 
 def test_load(tmp_path):
-    df = pd.DataFrame({"a": [1]})
+    df = pd.DataFrame(
+        {
+            "First Name": ["A"],
+            "Last Name": ["B"],
+            "Birthday": [pd.Timestamp(datetime.date(2000, 1, 1))],
+            "Phone Number": ["555-555-5555"],
+        },
+        index=pd.Index(["example@example.com"], name="Email"),
+    )
     df.to_csv(tmp_path / "test.csv")
-    assert fake_records.load("test.csv").loc["a"] == 1
+    pd.testing.assert_frame_equal(fake_records.load(tmp_path / "test.csv"), df)
 
 
 def test_assign_salaries():
