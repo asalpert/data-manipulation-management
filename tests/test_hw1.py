@@ -2,6 +2,8 @@ import os
 from pathlib import Path
 from importlib.util import find_spec
 import datetime
+import random
+from unittest import mock
 
 
 def test_module_exists():
@@ -73,3 +75,40 @@ def test_assign_salaries():
     df["Salary"].min() >= 20000
     df["Salary"].max() <= 100000
     assert len(df.columns) == 2
+
+
+def test_over_50k():
+    import fake_records
+    import pandas as pd
+
+    df = pd.DataFrame({"Salary": [49999, 50000, 50001]})
+    salaries = fake_records.normalize(df["Salary"])
+    assert all(salaries) > 50000
+
+
+def test_normalize():
+    import fake_records
+    import pandas as pd
+
+    s = pd.Series([random.randint(0, 1000) for _ in range(1000000)])
+    s_out = fake_records.normalize(s)
+    assert s_out.mean() < 1 & s_out.mean() > -1
+    assert s_out.std() > 0.9 & s_out.std() < 1.1
+
+
+def test_normalize_salaries(mocker):
+    import fake_records
+    import pandas as pd
+
+    normalized_spy = mocker.spy(fake_records, "normalize")
+    assign_salaries_spy = mocker.spy(fake_records, "assign_salaries")
+
+    df = pd.DataFrame(
+        {"Salary": [random.randint(20000, 100000) for _ in range(1000000)]}
+    )
+    df = fake_records.normalize_salaries(df)
+    assert df["Salary"].mean() < 1 & df["Salary"].mean() > -1
+    assert df["Salary"].std() > 0.9 & df["Salary"].std() < 1.1
+    assert len(df.columns) == 2
+    normalized_spy.assert_called_once()
+    assign_salaries_spy.assert_called_once()
