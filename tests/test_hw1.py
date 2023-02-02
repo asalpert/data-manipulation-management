@@ -1,14 +1,7 @@
 import os
 from pathlib import Path
 from importlib.util import find_spec
-from git import Repo
 import datetime
-import pandas as pd
-
-try:
-    import fake_records
-except:
-    pass
 
 
 def test_module_exists():
@@ -20,6 +13,8 @@ def test_faker_installed():
 
 
 def test_generate():
+    import fake_records
+
     df = fake_records.generate()
     assert len(df) == 1000
     assert {
@@ -32,11 +27,17 @@ def test_generate():
 
 
 def test_data_folder_ignored():
+    from git import Repo
+
     r = Repo(".")
     assert r.ignored("data")
 
 
 def test_save():
+
+    import pandas as pd
+    import fake_records
+
     df = pd.DataFrame({"a": [1]})
     fake_records.save(df)
     assert os.path.exists("data/fake_records.csv")
@@ -45,6 +46,9 @@ def test_save():
 
 
 def test_load(tmp_path):
+    import fake_records
+    import pandas as pd
+
     df = pd.DataFrame(
         {
             "First Name": ["A"],
@@ -59,6 +63,9 @@ def test_load(tmp_path):
 
 
 def test_assign_salaries():
+    import fake_records
+    import pandas as pd
+
     df = pd.DataFrame({"a": [1]})
     df = fake_records.assign_salaries(df)
     df["Salary"].min() >= 20000
