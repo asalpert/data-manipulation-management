@@ -30,7 +30,8 @@ def test_generate():
 
 def test_data_folder_ignored():
     from git import Repo
-
+    if not os.path.exists("data"):
+        os.mkdir("data")
     r = Repo(".")
     assert r.ignored("data")
 
