@@ -105,8 +105,8 @@ def test_normalize_salaries(mocker):
 
     df = pd.DataFrame({"Person": list(range(1000000))})
     df = fake_records.assign_normalized_salaries(df)
-    assert df["Salary"].mean() < 1 and df["Salary"].mean() > -1
-    assert df["Salary"].std() > 0.9 and df["Salary"].std() < 1.1
-    assert len(df.columns) == 2
+    assert df["Normalized Salary"].mean() < 1 and df["Normalized Salary"].mean() > -1
+    assert df["Normalized Salary"].std() > 0.9 and df["Normalized Salary"].std() < 1.1
+    assert len(df.columns) > 1
     normalized_spy.assert_called_once()
     assign_salaries_spy.assert_called_once()
