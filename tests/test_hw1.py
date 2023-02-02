@@ -66,7 +66,7 @@ def test_assign_salaries():
     import fake_records
     import pandas as pd
 
-    df = pd.DataFrame({"a": [1]})
+    df = pd.DataFrame({"a": [1 for _ in 1000]})
     df = fake_records.assign_salaries(df)
     df["Salary"].min() >= 20000
     df["Salary"].max() <= 100000
