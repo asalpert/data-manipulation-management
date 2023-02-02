@@ -70,7 +70,7 @@ def test_assign_salaries():
     import fake_records
     import pandas as pd
 
-    df = pd.DataFrame({"a": [1 for _ in 1000]})
+    df = pd.DataFrame({"a": [1 for _ in range(1000)]})
     df = fake_records.assign_salaries(df)
     df["Salary"].min() >= 20000
     df["Salary"].max() <= 100000
@@ -82,8 +82,8 @@ def test_over_50k():
     import pandas as pd
 
     df = pd.DataFrame({"Salary": [49999, 50000, 50001]})
-    salaries = fake_records.normalize(df["Salary"])
-    assert all(salaries) > 50000
+    salaries = fake_records.over_50k(df)["Salary"]
+    assert all(salaries > 50000)
 
 
 def test_normalize():
@@ -92,8 +92,8 @@ def test_normalize():
 
     s = pd.Series([random.randint(0, 1000) for _ in range(1000000)])
     s_out = fake_records.normalize(s)
-    assert s_out.mean() < 1 & s_out.mean() > -1
-    assert s_out.std() > 0.9 & s_out.std() < 1.1
+    assert s_out.mean() < 1 and s_out.mean() > -1
+    assert s_out.std() > 0.9 and s_out.std() < 1.1
 
 
 def test_normalize_salaries(mocker):
@@ -103,12 +103,10 @@ def test_normalize_salaries(mocker):
     normalized_spy = mocker.spy(fake_records, "normalize")
     assign_salaries_spy = mocker.spy(fake_records, "assign_salaries")
 
-    df = pd.DataFrame(
-        {"Salary": [random.randint(20000, 100000) for _ in range(1000000)]}
-    )
-    df = fake_records.normalize_salaries(df)
-    assert df["Salary"].mean() < 1 & df["Salary"].mean() > -1
-    assert df["Salary"].std() > 0.9 & df["Salary"].std() < 1.1
+    df = pd.DataFrame({"Person": list(range(1000000))})
+    df = fake_records.assign_normalized_salaries(df)
+    assert df["Salary"].mean() < 1 and df["Salary"].mean() > -1
+    assert df["Salary"].std() > 0.9 and df["Salary"].std() < 1.1
     assert len(df.columns) == 2
     normalized_spy.assert_called_once()
     assign_salaries_spy.assert_called_once()
