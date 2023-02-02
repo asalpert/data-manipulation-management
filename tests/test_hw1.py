@@ -39,6 +39,8 @@ def test_save():
     import fake_records
 
     df = pd.DataFrame({"a": [1]})
+    if not os.path.exists("data"):
+        os.mkdir("data")
     fake_records.save(df)
     assert os.path.exists("data/fake_records.csv")
     os.remove("data/fake_records.csv")
