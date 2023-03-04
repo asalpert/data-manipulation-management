@@ -7,7 +7,7 @@
     "ghcr.io/devcontainers-contrib/features/poetry:2": {},
     "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
   },
-  "postCreateCommand": "git remote add upstream https://github.com/wustl-data/sp23-assignments && poetry install",
+  "postCreateCommand": "poetry update && poetry install",
   "customizations": {
     "codespaces": {
       "repositories": {
@@ -22,7 +22,8 @@
       },
       "extensions": [
         "ms-python.python",
-        "eamodio.gitlens"
+        "eamodio.gitlens",
+        "bungcip.better-toml"
       ]
     }
   }
