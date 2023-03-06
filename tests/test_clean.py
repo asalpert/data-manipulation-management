@@ -16,7 +16,7 @@ def test_clean_addresses():
             "Address 2": ["", "", ""],
             "City": ["saint louis", "", ""],
             "State": ["MO", "12", "MO"],
-            "Zip": ["63130-4862", "63130", "12345"],
+            "Zip": ["63130-4862", "63130", "06463"],
         }
     )
     pd.testing.assert_frame_equal(
