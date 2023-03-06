@@ -23,8 +23,12 @@ def test_read_single_csv(tmpdir):
 
 def test_load_contributions(tmpdir):
     tmpdir = Path(tmpdir)
-    pd.DataFrame({"a": [1]}, index=pd.Index([1], name="i")).to_csv(tmpdir / "1.csv")
-    pd.DataFrame({"a": [2]}, index=pd.Index([2], name="i")).to_csv(tmpdir / "2.csv")
+    pd.DataFrame(
+        {"Date": ["1/1/2023 12:00:00 AM"]}, index=pd.Index([1], name="CD1_A ID")
+    ).to_csv(tmpdir / "1.csv")
+    pd.DataFrame(
+        {"Date": ["1/1/2023 12:00:00 AM"]}, index=pd.Index([2], name="CD1_A_ID")
+    ).to_csv(tmpdir / "2.csv")
     combined = io.load_contributions(tmpdir)
     print(combined)
 
