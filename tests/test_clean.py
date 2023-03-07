@@ -6,8 +6,8 @@ from mec import clean
 def test_expand_zip():
     zips = pd.Series(["63130-0000", "63130", ""])
     actual = clean.expand_zip(zips)
-    assert actual == pd.DataFrame(
-        {"Zip": ["63130", "63130", ""], "+4": ["0000", "", ""]}
+    assert all(
+        actual == pd.DataFrame({"Zip": ["63130", "63130", ""], "+4": ["0000", "", ""]})
     )
 
 
