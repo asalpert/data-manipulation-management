@@ -88,3 +88,8 @@ def test_clean_addresses():
             }
         ),
     )
+
+
+def test_strip_column_name_spaces():
+    contributions = pd.DataFrame({" MECID": []})
+    assert set(clean.strip_column_names(contributions).columns.names) == {"MECID"}
