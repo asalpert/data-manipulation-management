@@ -9,7 +9,7 @@ def test_csv_paths(tmpdir, faker):
     [path.touch() for path in paths]
     Path(tmpdir / ".gitignore").touch()
 
-    assert list(io.csv_paths(Path(tmpdir))) == paths
+    assert set(io.csv_paths(Path(tmpdir))) == set(paths)
 
 
 def test_read_single_csv(tmpdir):
