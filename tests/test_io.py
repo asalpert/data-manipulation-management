@@ -34,5 +34,13 @@ def test_load_contributions(tmpdir):
 
     pd.testing.assert_frame_equal(
         combined.sort_index(),
-        pd.DataFrame({"a": [1, 2]}, index=pd.Index([1, 2], name="i")),
+        pd.DataFrame(
+            {
+                "Date": [
+                    pd.Timestamp("2023-01-01 00:00:00"),
+                    pd.Timestamp("2023-01-01 00:00:00"),
+                ]
+            },
+            index=pd.Index([1, 2], name="CD1_A ID"),
+        ),
     )
