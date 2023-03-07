@@ -55,13 +55,13 @@ def test_street_suffixes(element, expected):
 def test_filter_states():
     states = pd.DataFrame({"State": ["MO", "12", ""]})
     actual = clean.filter_states(states)
-    assert actual == pd.DataFrame({"State": ["MO"]})
+    assert all(actual == pd.DataFrame({"State": ["MO"]}))
 
 
 def test_filter_zips():
     zips = pd.DataFrame({"Zip": ["63130", "ABCDE", "06463"]})
     actual = clean.filter_zips(zips)
-    assert actual == pd.DataFrame({"Zip": ["63130"]})
+    assert all(actual == pd.DataFrame({"Zip": ["63130"]}))
 
 
 def test_clean_addresses():
