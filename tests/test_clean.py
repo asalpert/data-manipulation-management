@@ -24,7 +24,7 @@ def test_standardize_frame():
         {
             "Address 1": ["123 main street."],
             "Address 2": [""],
-            "City": ["saint louis"],
+            "City": ["st. louis"],
             "State": ["MO"],
             "Zip": ["63130"],
         }
@@ -34,7 +34,7 @@ def test_standardize_frame():
         actual,
         pd.DataFrame(
             {
-                "Address 1": ["123 MAIN ST"],
+                "Address 1": ["123 MAIN STREET"],
                 "Address 2": [""],
                 "City": ["ST LOUIS"],
                 "State": ["MO"],
@@ -46,6 +46,18 @@ def test_standardize_frame():
 
 @pytest.mark.parametrize(
     "element,expected", [("SAINT LOUIS", "ST LOUIS"), ("SAINT CHARLES", "ST CHARLES")]
+)
+def test_saint_to_st(element, expected):
+    actual = clean.saint_to_st(element)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "element,expected",
+    [
+        ("123 MAIN STREET", "123 MAIN ST"),
+        ("1600 PENNSYLVANIA AVENUE", "1600 PENNSYLVANIA AVE"),
+    ],
 )
 def test_street_suffixes(element, expected):
     actual = clean.street_suffixes(element)
