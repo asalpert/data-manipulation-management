@@ -1,7 +1,7 @@
 from mec import io
 from pathlib import Path
 import pandas as pd
-
+import faker
 
 def test_csv_paths(tmpdir, faker):
 

@@ -16,6 +16,7 @@ types-requests = "^2.28.11.15"
 us = "^2.0.2"
 zipcodes = "^1.2.0"
 ipykernel = "^6.21.3"
+faker = "^17.6.0"
 
 
 [tool.mypy]
