@@ -24,7 +24,7 @@ def test_standardize_frame():
         {
             "Address 1": ["123 main street."],
             "Address 2": [""],
-            "City": ["saint louis"],
+            "City": ["st. louis"],
             "State": ["MO"],
             "Zip": ["63130"],
         }
@@ -34,7 +34,7 @@ def test_standardize_frame():
         actual,
         pd.DataFrame(
             {
-                "Address 1": ["123 MAIN ST"],
+                "Address 1": ["123 MAIN STREET"],
                 "Address 2": [""],
                 "City": ["ST LOUIS"],
                 "State": ["MO"],
