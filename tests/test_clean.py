@@ -47,6 +47,18 @@ def test_standardize_frame():
 @pytest.mark.parametrize(
     "element,expected", [("SAINT LOUIS", "ST LOUIS"), ("SAINT CHARLES", "ST CHARLES")]
 )
+def test_saint_to_st(element, expected):
+    actual = clean.saint_to_st(element)
+    assert actual == expected
+
+
+@pytest.mark.parametrize(
+    "element,expected",
+    [
+        ("123 MAIN STREET", "123 MAIN ST"),
+        ("1600 PENNSYLVANIA AVENUE", "1600 PENNSYLVANIA AVE"),
+    ],
+)
 def test_street_suffixes(element, expected):
     actual = clean.street_suffixes(element)
     assert actual == expected
