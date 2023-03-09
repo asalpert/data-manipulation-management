@@ -23,7 +23,7 @@ def read_single_csv(path) -> pd.DataFrame:
 def load_contributions(raw_data_dir) -> pd.DataFrame:
     paths = list(csv_paths(raw_data_dir))
     df_main = pd.DataFrame()
-    for i in range(len(paths)):
-        df_sub = read_single_csv(paths[i])
+    for path in paths:
+        df_sub = read_single_csv(path)
         df_main = pd.concat([df_main, df_sub])
     return df_main
