@@ -1,5 +1,7 @@
 import pandas as pd
 import string
+import us
+import zipcodes
 
 def expand_zip(column: pd.Series) -> pd.DataFrame:
     df = column.str.split("-", expand=True)
@@ -16,11 +18,22 @@ def standardize_element(column: pd.Series) -> pd.Series:
 def standardize_frame (df: pd.DataFrame) -> pd.DataFrame:
    return df.applymap(lambda col: standardize_element(col))
 
-def street_types_to_abbr (element: str) -> str:
-    
+def street_suffixes (address: pd.Series) -> pd.Series:
     pass
 
+def saint_to_st(element: pd.Series) -> pd.Series:
+    return element.replace("SAINT", "ST")
 
+def filter_states(address: pd.Dataframe) -> pd.DataFrame:
+    pass
+
+def filter_zips(address: pd.DataFrame) -> pd.DataFrame:
+    pass
+
+def clean_addresses(address: pd.DataFrame) -> pd.DataFrame:
+    df_clean = standardize_frame(address)
+
+    return df_clean
 
 def strip_punctuation(column: pd.Series) -> pd.Series:
     pass
