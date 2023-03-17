@@ -7,7 +7,19 @@
     "ghcr.io/devcontainers-contrib/features/poetry:2": {},
     "ghcr.io/devcontainers-contrib/features/pre-commit:2": {}
   },
+<<<<<<< HEAD
+  "extensions": ["ms-python.python", "eamodio.gitlens"],
+  
+  // Use 'forwardPorts' to make a list of ports inside the container available locally.
+  // This can be used to network with other containers or the host.
+  // "forwardPorts": [5000, 5432],
+
+  "postCreateCommand": "poetry install",
+
+  // Configure tool-specific properties.
+=======
   "postCreateCommand": "poetry update && poetry install",
+>>>>>>> main
   "customizations": {
     "codespaces": {
       "repositories": {
@@ -19,12 +31,16 @@
     "vscode": {
       "settings": {
         "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python"
+<<<<<<< HEAD
+      }
+=======
       },
       "extensions": [
         "ms-python.python",
         "eamodio.gitlens",
         "bungcip.better-toml"
       ]
+>>>>>>> main
     }
   }
 }
